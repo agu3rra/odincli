@@ -13,34 +13,47 @@ const (
 	exitInputError
 )
 
+// The help menu...
 func help() {
+	helpMessage := `Command line interface for Perplexity.ai
+
+Usage:
+  ppl [OPTIONS] [PROMPT]
+
+Options:
+  -m, --model      Large Language Model to use. Available: default, llama3, gpt4turbo, mistral
+  -p, --pattern    Pattern used to drive AI behavior. Use 'ppl --pattern' to display available options.
+      --version    Print version information
+
+Exit Codes:
+  0	OK
+  1	Failed at runtime
+  2	Invalid user input provided
+
+Examples:
+  ppl "What is the meaning of life?"
+  ppl --pattern=creative "What is the meaning of life?"
+  ppl --output yaml "What is the meaning of life?"
+`
+
 	flag.Usage = func() {
-		h := "Command line interface for Perplexity.ai\n\n"
-
-		h += "Usage:\n"
-		h += "  ppl [OPTIONS] [PROMPT]\n\n"
-
-		h += "Options:\n"
-		h += "  -m, --model      Large Language Model to use. Available: default, llama3, gpt4turbo, mistral\n"
-		h += "  -p, --pattern    Pattern used to drive AI behavior. Use 'ppl --pattern' to display available options.\n"
-		h += "      --version    Print version information\n\n"
-
-		h += "Exit Codes:\n"
-		h += fmt.Sprintf("  %d\t%s\n", exitOK, "OK")
-		h += fmt.Sprintf("  %d\t%s\n", exitRuntimeError, "Failed at runtime")
-		h += fmt.Sprintf("  %d\t%s\n", exitInputError, "Invalid user input provided")
-		h += "\n"
-
-		h += "Examples:\n"
-		h += "  ppl \"What is the meaning of life?\"\n"
-		h += "  ppl --pattern=creative \"What is the meaning of life?\"\n"
-		h += "  ppl --output yaml \"What is the meaning of life?\"\n"
-
-		fmt.Fprintf(os.Stderr, h)
+		fmt.Fprintf(os.Stderr, helpMessage)
 	}
+}
+
+// CLI's input configuration
+type Config struct {
+	ModelFlag   string
+	PatternFlag string
+	VersionFlag bool
 }
 
 func main() {
 	help()
+	cfg := Config{}
+	flag.StringVar(&cfg.ModelFlag, "model", "gpt4turbo", "")
+	flag.StringVar(&cfg.PatternFlag, "pattern", "None", "")
+	flag.BoolVar(&cfg.VersionFlag, "version", false, "")
 	flag.Parse()
+	os.Exit(exitOK)
 }
