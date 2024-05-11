@@ -30,9 +30,10 @@ Options:
                             Default: 1
   -m, --max-tokens NUMBER   The maximum number of completion tokens returned by the API.
   -c, --citations           Returns citations in the response.
-                            Default: false (flag absent).
+                            Default: false
   -o, --output TEXT         The output format you get the response.
-                            Available options: text (default), yaml, json
+                            Available options: text, yaml, json
+							Default: text
   -v, --version             Print version information and exit.
 
 Exit Codes:
