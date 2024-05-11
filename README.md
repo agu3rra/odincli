@@ -29,7 +29,7 @@ At first run, make sure you execute `ppl configure` and provide your [Perplexity
 If you ever need to edit it, it will be saved at `~/.pplcli/config`.
 
 The simplest possible query is.
-```bash
+```text
 $ ppl "What is the meaning of life?"
 The question "What is the meaning of life?" has intrigued philosophers, theologians, scientists, 
 and thinkers throughout history, and it continues to be a central inquiry in the study of 
