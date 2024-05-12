@@ -6,6 +6,13 @@ import (
 	"os"
 )
 
+// Defaults
+const (
+	defaultModel       = "llama-3-sonar-small-32k-online"
+	defaultTemperature = 1.0
+	defaultTokens      = 4096
+)
+
 // Exit codes
 const (
 	exitOK = iota
@@ -28,11 +35,12 @@ Options:
   -t, --temperature NUMBER  The amount of randomness in the response, valued between 0 inclusive and 2 exclusive. 
                             Higher values are more random. Lower values more deterministic.
                             Default: 1
-  -m, --max-tokens NUMBER   The maximum number of completion tokens returned by the API.
+  -mt, --max-tokens NUMBER  The maximum number of completion tokens returned by the API.
+                            Default: 4096
   -c, --citations           Returns citations in the response.
-                            Default: false
+                            Default: true
   -o, --output TEXT         The output format you get the response.
-                            Available options: text, yaml, json
+                            Options: text, yaml, json
 							Default: text
   -v, --version             Print version information and exit.
 
@@ -43,7 +51,7 @@ Exit Codes:
 
 Examples:
   ppl "What is the meaning of life?"
-  ppl --pattern=creative "What is the meaning of life?"
+  ppl --pattern=write_essay "What is the meaning of life?"
   ppl --output yaml "What is the meaning of life?"
 `
 
@@ -54,21 +62,47 @@ Examples:
 
 // CLI's input configuration
 type Config struct {
-	ModelFlag           string
-	PatternFlag         string
-	TemperatureFlag     int
-	MaxTokensFlag       int
-	ReturnCitationsFlag bool
-	OutputFlag          string
-	VersionFlag         bool
+	ModelFlag                string
+	ModelFlagShort           string
+	PatternFlag              string
+	PatternFlagShort         string
+	TemperatureFlag          float64
+	TemperatureFlagShort     float64
+	MaxTokensFlag            int
+	MaxTokensFlagShort       int
+	ReturnCitationsFlag      bool
+	ReturnCitationsFlagShort bool
+	OutputFlag               string
+	OutputFlagShort          string
+	VersionFlag              bool
+	VersionFlagShort         bool
 }
 
 func main() {
 	help()
 	cfg := Config{}
-	flag.StringVar(&cfg.ModelFlag, "model", "gpt4turbo", "")
+
+	flag.StringVar(&cfg.ModelFlag, "model", defaultModel, "")
+	flag.StringVar(&cfg.ModelFlagShort, "m", defaultModel, "")
 	flag.StringVar(&cfg.PatternFlag, "pattern", "None", "")
+	flag.StringVar(&cfg.PatternFlagShort, "p", "None", "")
+	flag.Float64Var(&cfg.TemperatureFlag, "temperature", defaultTemperature, "")
+	flag.Float64Var(&cfg.TemperatureFlagShort, "t", defaultTemperature, "")
+	flag.IntVar(&cfg.MaxTokensFlag, "max-tokens", defaultTokens, "")
+	flag.IntVar(&cfg.MaxTokensFlagShort, "mt", defaultTokens, "")
+	flag.BoolVar(&cfg.ReturnCitationsFlag, "citations", true, "")
+	flag.BoolVar(&cfg.ReturnCitationsFlagShort, "c", true, "")
+	flag.StringVar(&cfg.OutputFlag, "output", "text", "")
+	flag.StringVar(&cfg.OutputFlagShort, "o", "text", "")
 	flag.BoolVar(&cfg.VersionFlag, "version", false, "")
+	flag.BoolVar(&cfg.VersionFlagShort, "v", false, "")
+
 	flag.Parse()
+
+	if cfg.VersionFlag || cfg.VersionFlagShort {
+		fmt.Printf("ppl cli version: 0.1.0\n")
+		os.Exit(exitOK)
+	}
+
 	os.Exit(exitOK)
 }
