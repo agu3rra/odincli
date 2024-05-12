@@ -24,7 +24,8 @@ func TestVersionFlag(test *testing.T) {
 			if err != nil {
 				if exiterr, ok := err.(*exec.ExitError); ok {
 					if exiterr.ExitCode() != testCase.exitCode {
-						test.Errorf("Expected exit code %d, got %d", testCase.exitCode, exiterr.ExitCode())
+						test.Errorf(
+							"Expected exit code %d, got %d", testCase.exitCode, exiterr.ExitCode())
 					}
 				} else {
 					test.Fatalf("cmd.Run() failed with %s", err)
