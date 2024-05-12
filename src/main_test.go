@@ -20,20 +20,20 @@ func TestVersionFlag(test *testing.T) {
 	for _, testCase := range tests {
 		test.Run(testCase.name, func(test *testing.T) {
 			cmd := exec.Command("./ppl", testCase.flag)
-			output, err := cmd.CombinedOutput()
-			if err != nil {
-				if exiterr, ok := err.(*exec.ExitError); ok {
+			stdout, stderr := cmd.CombinedOutput()
+			if stderr != nil {
+				if exiterr, ok := stderr.(*exec.ExitError); ok {
 					if exiterr.ExitCode() != testCase.exitCode {
 						test.Errorf(
 							"Expected exit code %d, got %d", testCase.exitCode, exiterr.ExitCode())
 					}
 				} else {
-					test.Fatalf("cmd.Run() failed with %s", err)
+					test.Fatalf("cmd.Run() failed with %s", stderr)
 				}
 			}
-
-			if !strings.Contains(string(output), testCase.want) {
-				test.Errorf("Unexpected output: %s, want %s", string(output), testCase.want)
+			// we have an OK exit, so we check stdout has something we want to see
+			if !strings.Contains(string(stdout), testCase.want) {
+				test.Errorf("Unexpected output: %s, want %s", string(stdout), testCase.want)
 			}
 		})
 	}
