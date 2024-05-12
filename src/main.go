@@ -100,7 +100,12 @@ func main() {
 	flag.Parse()
 
 	if cfg.VersionFlag || cfg.VersionFlagShort {
-		fmt.Printf("ppl cli version: 0.1.0\n")
+		version, err := os.ReadFile("version")
+		if err != nil {
+			fmt.Fprintf(os.Stderr, "Error reading version information: %v\n", err)
+			os.Exit(exitRuntimeError)
+		}
+		fmt.Println("pplcli version:", string(version))
 		os.Exit(exitOK)
 	}
 
