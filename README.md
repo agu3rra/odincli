@@ -16,7 +16,7 @@
 Support for multiple output formats (text, YAML, JSON) for easy integration and further processing.
 
 ### Patterns
-We leverage Daniel Miessler's [fabric](https://github.com/danielmiessler/fabric) project to provide
+We leverage [Daniel Miessler](https://github.com/danielmiessler)'s [fabric](https://github.com/danielmiessler/fabric) project to provide
 some ready to use prompts that enhance your AI interactions.
 
 ### Auto-copy to clipboard
