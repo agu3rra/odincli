@@ -41,7 +41,7 @@ Support for multiple output formats (text, YAML, JSON) for easy integration and 
 
 ### Patterns
 We leverage Daniel Miessler's [fabric](https://github.com/danielmiessler/fabric) project to provide
-some ready to use prompts that enhance the response quality you get out of the AI.
+some ready to use prompts that enhance your AI interactions.
 
 ### Auto-copy to clipboard
 Your last query response is automatically copied to the local clipboard, so that you're able to easily
