@@ -2,14 +2,29 @@
 ODIN is a powerful command-line application designed to interact seamlessly with [OpenAI's ChatGPT](https://chatgpt.com/). Inspired by the Norse god Odin, who was always in pursuit of knowledge and wisdom, this tool aims to enhance your capabilities by providing easy access to advanced AI-driven conversations right from your terminal.
 
 ![odin](./img/odin-robot-sq.png)
-<!-- TOC depthfrom:2 depthto:2 -->
 
+## Table of Contents
+
+- [Features](#features)
 - [Install](#install)
 - [Usage](#usage)
-- [Features](#features)
 - [Why](#why)
 
-<!-- /TOC -->
+## Features
+
+### Flexible Output
+Support for multiple output formats (text, YAML, JSON) for easy integration and further processing.
+
+### Patterns
+We leverage Daniel Miessler's [fabric](https://github.com/danielmiessler/fabric) project to provide
+some ready to use prompts that enhance your AI interactions.
+
+### Auto-copy to clipboard
+Your last query response is automatically copied to the local clipboard, so that you're able to easily
+paste it elsewhere (i.e.: your favorite note taking app).
+
+### History
+All your history (prompts and responses) are automatically saved to `~/.odincli/history/`.
 
 ## Install
 
@@ -34,21 +49,6 @@ and thinkers throughout history, and it continues to be a central inquiry in the
 philosophy and existentialism.
 ...
 ```
-## Features
-
-### Flexible Output
-Support for multiple output formats (text, YAML, JSON) for easy integration and further processing.
-
-### Patterns
-We leverage Daniel Miessler's [fabric](https://github.com/danielmiessler/fabric) project to provide
-some ready to use prompts that enhance your AI interactions.
-
-### Auto-copy to clipboard
-Your last query response is automatically copied to the local clipboard, so that you're able to easily
-paste it elsewhere (i.e.: your favorite note taking app).
-
-### History
-All your history (prompts and responses) are automatically saved to `~/.odincli/history/`.
 
 ## Why
 Why did I create this?  
