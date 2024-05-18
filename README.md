@@ -1,11 +1,9 @@
 # GPT Terminal
-This CLI application (`gpterm`) allows you to interact with [Chat GPT](https://chatgpt.com/) via 
-the a terminal window.
+ODIN is a powerful command-line application designed to interact seamlessly with [OpenAI's ChatGPT](https://chatgpt.com/). Inspired by the Norse god Odin, who was always in pursuit of knowledge and wisdom, this tool aims to enhance your capabilities by providing easy access to advanced AI-driven conversations right from your terminal.
 
-## Table of contents
+![odin](./img/odin-robot-sq.png)
 <!-- TOC depthfrom:2 depthto:2 -->
 
-- [Table of contents](#table-of-contents)
 - [Install](#install)
 - [Usage](#usage)
 - [Features](#features)
@@ -16,27 +14,30 @@ the a terminal window.
 ## Install
 
 ### macOS
-> brew install gpterm
+> brew install odincli
 
 ### linux
 Simply copy the binary out of our releases section on this repository and add it to your `$PATH`.
 
 ## Usage
 Simply access the built-in help menu to get instructions.
-> gpterm --help
+> odin --help
 
-At first run, make sure you execute `gpterm configure` and provide your [ChatGPT API key](https://platform.openai.com/api-keys).
-If you ever need to edit it, it will be saved at `~/.gpterm/config`.
+At first run, make sure you execute `odin configure` and provide your [ChatGPT API key](https://platform.openai.com/api-keys).
+If you ever need to edit it, it will be saved at `~/.odincli/config`.
 
 The simplest possible query is.
 ```text
-$ gpterm "What is the meaning of life?"
+$ odin "What is the meaning of life?"
 The question "What is the meaning of life?" has intrigued philosophers, theologians, scientists, 
 and thinkers throughout history, and it continues to be a central inquiry in the study of 
 philosophy and existentialism.
 ...
 ```
 ## Features
+
+### Flexible Output
+Support for multiple output formats (text, YAML, JSON) for easy integration and further processing.
 
 ### Patterns
 We leverage Daniel Miessler's [fabric](https://github.com/danielmiessler/fabric) project to provide
@@ -47,7 +48,7 @@ Your last query response is automatically copied to the local clipboard, so that
 paste it elsewhere (i.e.: your favorite note taking app).
 
 ### History
-All your history (prompts and responses) are automatically saved to `~/.gpterm/history/`.
+All your history (prompts and responses) are automatically saved to `~/.odincli/history/`.
 
 ## Why
 Why did I create this?  
