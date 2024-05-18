@@ -13,13 +13,13 @@ func TestVersionFlag(test *testing.T) {
 		want     string
 		exitCode int
 	}{
-		{"TestVersionLongFlag", "--version", "pplcli version:", 0},
-		{"TestVersionShortFlag", "-v", "pplcli version:", 0},
+		{"TestVersionLongFlag", "--version", "gpterm version:", 0},
+		{"TestVersionShortFlag", "-v", "gpterm version:", 0},
 	}
 
 	for _, testCase := range tests {
 		test.Run(testCase.name, func(test *testing.T) {
-			cmd := exec.Command("./ppl", testCase.flag)
+			cmd := exec.Command("./gpterm", testCase.flag)
 			stdout, stderr := cmd.CombinedOutput()
 			if stderr != nil {
 				if exiterr, ok := stderr.(*exec.ExitError); ok {

@@ -9,7 +9,7 @@ import (
 
 // Defaults
 const (
-	defaultModel       = "llama-3-sonar-small-32k-online"
+	defaultModel       = "gpt4omni"
 	defaultTemperature = 1.0
 	defaultTokens      = 4096
 )
@@ -29,10 +29,10 @@ var (
 
 // The help menu...
 func help() {
-	helpMessage := `Command line interface for Perplexity.ai
+	helpMessage := `Command line interface for OpenAI's ChatGPT
 
 Usage:
-  ppl [OPTIONS] [PROMPT]
+  gpterm [OPTIONS] [PROMPT]
 
 Options:
   -m, --model TEXT          Large Language Model to use. Use 'ppl --model' to display available options.
@@ -57,9 +57,9 @@ Exit Codes:
   2	Invalid user input provided
 
 Examples:
-  ppl "What is the meaning of life?"
-  ppl --pattern=write_essay "What is the meaning of life?"
-  ppl --output yaml "What is the meaning of life?"
+  gpterm "What is the meaning of life?"
+  gpterm --pattern=write_essay "What is the meaning of life?"
+  gpterm --output yaml "What is the meaning of life?"
 `
 
 	flag.Usage = func() {
@@ -113,7 +113,7 @@ func main() {
 			logErr.Printf("Error reading version information: %v\n", err)
 			os.Exit(exitRuntimeError)
 		}
-		fmt.Printf("pplcli version: %s\n", string(version))
+		fmt.Printf("gpterm version: %s\n", string(version))
 		os.Exit(exitOK)
 	}
 	os.Exit(exitOK)
