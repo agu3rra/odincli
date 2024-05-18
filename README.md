@@ -1,5 +1,5 @@
 # ODIN CLI
-`ODIN` is a powerful command-line application designed to interact seamlessly with [OpenAI's ChatGPT](https://chatgpt.com/). Inspired by the Norse god Odin, who was always in pursuit of knowledge and wisdom, this tool aims to enhance your capabilities by providing easy access to advanced AI-driven conversations right from your terminal.
+Inspired by the Norse god Odin, who was always in pursuit of knowledge and wisdom, this tool aims to enhance your capabilities by providing easy access to advanced AI-driven conversations right from your terminal.
 
 ![odin](./img/odin-robot-sq.png)
 
