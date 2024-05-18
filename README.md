@@ -1,5 +1,5 @@
 # ODIN CLI
-Inspired by the Norse god Odin, who was always in pursuit of knowledge and wisdom, this tool aims to enhance your capabilities by providing easy access to advanced AI-driven conversations right from your terminal.
+Inspired by the Norse god Odin, who was always in pursuit of knowledge and wisdom, this tool aims to enhance your capabilities by providing easy access to advanced AI-driven interactions right from your terminal.
 
 ![odin](./img/odin-robot-sq.png)
 
