@@ -3,6 +3,7 @@ package main
 import (
 	"flag"
 	"fmt"
+	"log"
 	"os"
 )
 
@@ -18,6 +19,12 @@ const (
 	exitOK = iota
 	exitRuntimeError
 	exitInputError
+)
+
+var (
+	logInfo = log.New(os.Stdout, "INFO: ", log.Ldate|log.Ltime|log.Lshortfile)
+	logWarn = log.New(os.Stdout, "WARNING: ", log.Ldate|log.Ltime|log.Lshortfile)
+	logErr  = log.New(os.Stderr, "ERROR: ", log.Ldate|log.Ltime|log.Lshortfile)
 )
 
 // The help menu...
@@ -56,7 +63,8 @@ Examples:
 `
 
 	flag.Usage = func() {
-		fmt.Fprintf(os.Stderr, helpMessage)
+		fmt.Fprint(os.Stderr, helpMessage)
+		os.Exit(exitRuntimeError)
 	}
 }
 
@@ -102,12 +110,11 @@ func main() {
 	if cfg.VersionFlag || cfg.VersionFlagShort {
 		version, err := os.ReadFile("version")
 		if err != nil {
-			fmt.Fprintf(os.Stderr, "Error reading version information: %v\n", err)
+			logErr.Printf("Error reading version information: %v\n", err)
 			os.Exit(exitRuntimeError)
 		}
-		fmt.Println("pplcli version:", string(version))
+		fmt.Printf("pplcli version: %s\n", string(version))
 		os.Exit(exitOK)
 	}
-
 	os.Exit(exitOK)
 }
