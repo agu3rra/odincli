@@ -1,4 +1,5 @@
 #!/bin/bash
+# Run this script to update the fabric/patterns folder
 
 # Navigate to the submodule directory
 cd fabric
