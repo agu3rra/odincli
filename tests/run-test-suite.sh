@@ -1,5 +1,6 @@
 #!/bin/bash
 # Run this from the repository's root folder.
-go build -o odin ./src
-go test -v -coverprofile=./tests/coverage.out ./src
+set -e
+go build -o odin ./...
+go test -v ./... -coverpkg=./... -coverprofile=./tests/coverage.out 
 go tool cover -html=./tests/coverage.out

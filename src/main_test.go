@@ -8,10 +8,14 @@ import (
 	"github.com/agu3rra/odincli/src/common"
 )
 
+func executeCommand(name string, args ...string) ([]byte, error) {
+	cmd := exec.Command(name, args...)
+	return cmd.CombinedOutput()
+}
+
 func TestHelpWhenAbsentSubcommand(test *testing.T) {
 	test.Run("subcommands absent", func(test *testing.T) {
-		cmd := exec.Command("./../odin")
-		stdout, stderr := cmd.CombinedOutput()
+		stdout, stderr := executeCommand("./../odin")
 
 		if stderr == nil {
 			test.Fatal("when the help menu appears, it should be printed to stderr since it indicates an error")
@@ -52,8 +56,7 @@ func TestVersionSubcommand(test *testing.T) {
 
 	for _, testCase := range tests {
 		test.Run(testCase.name, func(test *testing.T) {
-			cmd := exec.Command("./../odin", testCase.subcommand)
-			stdout, stderr := cmd.CombinedOutput()
+			stdout, stderr := executeCommand("./../odin", testCase.subcommand)
 			if stderr != nil {
 				if exiterr, ok := stderr.(*exec.ExitError); ok {
 					if exiterr.ExitCode() != testCase.wantExitCode {
