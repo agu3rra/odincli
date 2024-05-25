@@ -3,113 +3,54 @@ package main
 import (
 	"flag"
 	"fmt"
-	"log"
 	"os"
-)
 
-// Defaults
-const (
-	defaultModel       = "gpt4-omni"
-	defaultTemperature = 1.0
-)
-
-// Exit codes
-const (
-	exitOK = iota
-	exitRuntimeError
-	exitInputError
-)
-
-var (
-	logInfo = log.New(os.Stdout, "INFO: ", log.Ldate|log.Ltime|log.Lshortfile)
-	logWarn = log.New(os.Stdout, "WARNING: ", log.Ldate|log.Ltime|log.Lshortfile)
-	logErr  = log.New(os.Stderr, "ERROR: ", log.Ldate|log.Ltime|log.Lshortfile)
+	"github.com/agu3rra/odincli/src/common"
+	"github.com/agu3rra/odincli/src/subcommands"
 )
 
 // The help menu...
 func help() {
-	helpMessage := `ODIN: Command line interface for OpenAI's ChatGPT
+	helpMessage := `ODIN: Command line interface for Artifical Intelligence
 
 Usage:
-  odin [OPTIONS] [PROMPT]
+  odin [SUBCOMMAND] [OPTIONS]
 
-Options:
-  -m, --model TEXT          Large Language Model to use. Use 'ppl --model' to display available options.
-                            Default: gpt4-omni
-  -p, --pattern TEXT        Pattern used to drive AI behavior. Use 'ppl --pattern' to display available options.
-                            Default: None.
-  -t, --temperature NUMBER  The amount of randomness in the response, valued between 0 inclusive and 2 exclusive. 
-                            Higher values are more random. Lower values more deterministic.
-                            Default: 1
-  -c, --citations           Returns citations in the response.
-                            Default: true
-  -o, --output TEXT         The output format you get the response.
-                            Options: text, yaml, json
-							Default: text
-  -v, --version             Print version information and exit.
+Subcommands:
+  chat                      Default text based interaction with the AI.
+  list                      Display available options for configurable flags.
+  config                    Initial setup of OpenAI API key.
+  purge                     Delete all chat history from ~/.odincli/history.
+  version                   Display version info and exit.
+Use "odin [SUBCOMMAND] --help" for more information 
 
 Exit Codes:
   0	OK
   1	Failed at runtime
   2	Invalid user input provided
-
-Examples:
-  odin "What is the meaning of life?"
-  odin --pattern=write_essay "What is the meaning of life?"
-  odin --output yaml "What is the meaning of life?"
 `
-
-	flag.Usage = func() {
-		fmt.Fprint(os.Stderr, helpMessage)
-		os.Exit(exitRuntimeError)
-	}
-}
-
-// CLI's input configuration
-type Config struct {
-	ModelFlag                string
-	ModelFlagShort           string
-	PatternFlag              string
-	PatternFlagShort         string
-	TemperatureFlag          float64
-	TemperatureFlagShort     float64
-	MaxTokensFlag            int
-	MaxTokensFlagShort       int
-	ReturnCitationsFlag      bool
-	ReturnCitationsFlagShort bool
-	OutputFlag               string
-	OutputFlagShort          string
-	VersionFlag              bool
-	VersionFlagShort         bool
+	fmt.Fprint(os.Stderr, helpMessage)
+	os.Exit(common.ExitRuntimeError)
 }
 
 func main() {
-	help()
-	cfg := Config{}
+	// Define subcommands
+	// cmdChat := flag.NewFlagSet("chat", flag.ExitOnError)
+	// cmdConfig := flag.NewFlagSet("config", flag.ExitOnError)
+	// cmdList := flag.NewFlagSet("list", flag.ExitOnError)
+	// cmdPurge := flag.NewFlagSet("purge", flag.ExitOnError)
+	// cmdVersion := flag.NewFlagSet("version", flag.ExitOnError)
 
-	flag.StringVar(&cfg.ModelFlag, "model", defaultModel, "")
-	flag.StringVar(&cfg.ModelFlagShort, "m", defaultModel, "")
-	flag.StringVar(&cfg.PatternFlag, "pattern", "None", "")
-	flag.StringVar(&cfg.PatternFlagShort, "p", "None", "")
-	flag.Float64Var(&cfg.TemperatureFlag, "temperature", defaultTemperature, "")
-	flag.Float64Var(&cfg.TemperatureFlagShort, "t", defaultTemperature, "")
-	flag.BoolVar(&cfg.ReturnCitationsFlag, "citations", true, "")
-	flag.BoolVar(&cfg.ReturnCitationsFlagShort, "c", true, "")
-	flag.StringVar(&cfg.OutputFlag, "output", "text", "")
-	flag.StringVar(&cfg.OutputFlagShort, "o", "text", "")
-	flag.BoolVar(&cfg.VersionFlag, "version", false, "")
-	flag.BoolVar(&cfg.VersionFlagShort, "v", false, "")
-
-	flag.Parse()
-
-	if cfg.VersionFlag || cfg.VersionFlagShort {
-		version, err := os.ReadFile("version")
-		if err != nil {
-			logErr.Printf("Error reading version information: %v\n", err)
-			os.Exit(exitRuntimeError)
-		}
-		fmt.Printf("odin version: %s\n", string(version))
-		os.Exit(exitOK)
+	if len(os.Args) < 2 {
+		help()
 	}
-	os.Exit(exitOK)
+
+	subcommand := os.Args[1]
+	switch subcommand {
+	case "version":
+		subcommands.Version()
+	default:
+		help()
+	}
+	flag.Parse()
 }
