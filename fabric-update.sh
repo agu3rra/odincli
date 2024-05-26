@@ -1,17 +1,16 @@
 #!/bin/bash
-# Run this script to update the fabric/patterns folder
+# Run from the project root
 
-# Navigate to the submodule directory
-cd fabric
+# Create new branch
+git checkout -b fabric.update
 
 # Fetch and pull the latest changes
-git fetch --depth 1
-git pull origin main
+# git submodule update --remote --merge --depth=1
+git submodule update --init --recursive --remote --merge --depth=1
 
 # Remove unwanted files
+cd fabric
 find . -mindepth 1 -maxdepth 1 ! -name 'patterns' -exec rm -rf {} +
-
-# Navigate back to the main project directory
 cd ..
 
 # Add and commit changes
