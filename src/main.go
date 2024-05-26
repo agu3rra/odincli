@@ -29,15 +29,14 @@ Exit Codes:
   2	Invalid user input provided
 `
 	fmt.Fprint(os.Stderr, helpMessage)
-	os.Exit(common.ExitRuntimeError)
+	os.Exit(common.ExitInputError)
 }
 
 // Runs the cli and returns the exit code for the OS
 // We keep it separate from main to facilitate test evaluation while maintaining it all in the same process as the tests
-func cli(args []string) int {
+func run(args []string) int {
 	if len(args) < 2 {
 		help()
-		return common.ExitRuntimeError
 	}
 
 	subcommand := args[1]
@@ -47,10 +46,10 @@ func cli(args []string) int {
 		return common.ExitOK
 	default:
 		help()
-		return common.ExitRuntimeError
 	}
+	return common.ExitOK
 }
 
 func main() {
-	os.Exit(cli(os.Args))
+	os.Exit(run(os.Args))
 }
