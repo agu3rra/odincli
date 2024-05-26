@@ -29,7 +29,6 @@ Exit Codes:
   2	Invalid user input provided
 `
 	fmt.Fprint(os.Stderr, helpMessage)
-	os.Exit(common.ExitInputError)
 }
 
 // Runs the cli and returns the exit code for the OS
@@ -37,6 +36,7 @@ Exit Codes:
 func run(args []string) int {
 	if len(args) < 2 {
 		help()
+		return common.ExitInputError
 	}
 
 	subcommand := args[1]
@@ -46,8 +46,8 @@ func run(args []string) int {
 		return common.ExitOK
 	default:
 		help()
+		return common.ExitInputError
 	}
-	return common.ExitOK
 }
 
 func main() {

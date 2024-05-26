@@ -20,20 +20,33 @@ func TestCommandLine(test *testing.T) {
 			wantStderr   string
 		}{
 			{
-				name:         "no argument displays help",
-				args:         []string{},
+				name: "no argument displays help",
+				args: []string{
+					"odin",
+				},
 				wantExitCode: common.ExitInputError,
 				wantStdout:   "",
 				wantStderr:   "Usage",
 			},
 			{
-				name: "version",
+				name: "version display",
 				args: []string{
+					"odin",
 					"version",
 				},
 				wantExitCode: common.ExitOK,
 				wantStdout:   "odin version:",
 				wantStderr:   "",
+			},
+			{
+				name: "unexisting subcommand",
+				args: []string{
+					"odin",
+					"foobar",
+				},
+				wantExitCode: common.ExitInputError,
+				wantStdout:   "",
+				wantStderr:   "Usage",
 			},
 		}
 		for _, testCase := range tests {
@@ -75,6 +88,7 @@ func TestCommandLine(test *testing.T) {
 				if !bytes.Contains(errBytes, wantStderrBytes) {
 					test.Errorf("Unexpected stderr content: %s", string(errBytes))
 				}
+
 				if gotExitCode != testCase.wantExitCode {
 					test.Errorf("Unexpected exit code: %d; wanted: %d", gotExitCode, testCase.wantExitCode)
 				}

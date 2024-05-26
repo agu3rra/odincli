@@ -11,13 +11,13 @@ import (
 //go:embed version
 var versionFile embed.FS
 
-func Version() {
-
+// Prints version and returns exit code
+func Version() int {
 	version, err := versionFile.ReadFile("version")
 	if err != nil {
 		common.LogErr.Printf("Error reading version information: %v\n", err)
 		os.Exit(common.ExitRuntimeError)
 	}
 	fmt.Printf("odin version: %s\n", string(version))
-	os.Exit(common.ExitOK)
+	return common.ExitOK
 }

@@ -55,9 +55,9 @@
 			<div id="nav">
 				<select id="files">
 				
-				<option value="file0">github.com/agu3rra/odincli/src/main.go (0.0%)</option>
+				<option value="file0">github.com/agu3rra/odincli/src/main.go (91.7%)</option>
 				
-				<option value="file1">github.com/agu3rra/odincli/src/subcommands/version.go (0.0%)</option>
+				<option value="file1">github.com/agu3rra/odincli/src/subcommands/version.go (66.7%)</option>
 				
 				</select>
 			</div>
@@ -74,7 +74,6 @@
 		<pre class="file" id="file0" style="display: none">package main
 
 import (
-        "flag"
         "fmt"
         "os"
 
@@ -83,7 +82,7 @@ import (
 )
 
 // The help menu...
-func help() <span class="cov0" title="0">{
+func help() <span class="cov8" title="1">{
         helpMessage := `ODIN: Command line interface for Artifical Intelligence
 
 Usage:
@@ -103,30 +102,31 @@ Exit Codes:
   2        Invalid user input provided
 `
         fmt.Fprint(os.Stderr, helpMessage)
-        os.Exit(common.ExitRuntimeError)
 }</span>
 
-func main() <span class="cov0" title="0">{
-        // Define subcommands
-        // cmdChat := flag.NewFlagSet("chat", flag.ExitOnError)
-        // cmdConfig := flag.NewFlagSet("config", flag.ExitOnError)
-        // cmdList := flag.NewFlagSet("list", flag.ExitOnError)
-        // cmdPurge := flag.NewFlagSet("purge", flag.ExitOnError)
-        // cmdVersion := flag.NewFlagSet("version", flag.ExitOnError)
-
-        if len(os.Args) &lt; 2 </span><span class="cov0" title="0">{
+// Runs the cli and returns the exit code for the OS
+// We keep it separate from main to facilitate test evaluation while maintaining it all in the same process as the tests
+func run(args []string) int <span class="cov8" title="1">{
+        if len(args) &lt; 2 </span><span class="cov8" title="1">{
                 help()
+                return common.ExitInputError
         }</span>
 
-        <span class="cov0" title="0">subcommand := os.Args[1]
+        <span class="cov8" title="1">subcommand := args[1]
         switch subcommand </span>{
-        case "version":<span class="cov0" title="0">
-                subcommands.Version()</span>
-        default:<span class="cov0" title="0">
-                help()</span>
+        case "version":<span class="cov8" title="1">
+                subcommands.Version()
+                return common.ExitOK</span>
+        default:<span class="cov8" title="1">
+                help()
+                return common.ExitInputError</span>
         }
-        <span class="cov0" title="0">flag.Parse()</span>
 }
+
+//go:nocover
+func main() <span class="cov0" title="0">{
+        os.Exit(run(os.Args))
+}</span>
 </pre>
 		
 		<pre class="file" id="file1" style="display: none">package subcommands
@@ -142,15 +142,15 @@ import (
 //go:embed version
 var versionFile embed.FS
 
-func Version() <span class="cov0" title="0">{
-
+// Prints version and returns exit code
+func Version() int <span class="cov8" title="1">{
         version, err := versionFile.ReadFile("version")
         if err != nil </span><span class="cov0" title="0">{
                 common.LogErr.Printf("Error reading version information: %v\n", err)
                 os.Exit(common.ExitRuntimeError)
         }</span>
-        <span class="cov0" title="0">fmt.Printf("odin version: %s\n", string(version))
-        os.Exit(common.ExitOK)</span>
+        <span class="cov8" title="1">fmt.Printf("odin version: %s\n", string(version))
+        return common.ExitOK</span>
 }
 </pre>
 		
