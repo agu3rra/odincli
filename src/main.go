@@ -18,7 +18,7 @@ Usage:
 Subcommands:
   chat                      Default text based interaction with the AI.
   list                      Display available options for configurable flags.
-  config                    Initial setup of OpenAI API key.
+  config                    Interactive setup process. Run at least once before using ODIN. Data saved to ~/.odin/config.
   purge                     Delete all chat history from ~/.odincli/history.
   version                   Display version info and exit.
 Use "odin [SUBCOMMAND] --help" for more information 

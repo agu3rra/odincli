@@ -60,22 +60,22 @@ func TestCommandLine(test *testing.T) {
 				}()
 
 				// Create a pipe to capture output
-				rOut, wOut, _ := os.Pipe()
-				rErr, wErr, _ := os.Pipe()
-				os.Stdout = wOut
-				os.Stderr = wErr
+				readOut, writeOut, _ := os.Pipe()
+				readErr, writeErr, _ := os.Pipe()
+				os.Stdout = writeOut
+				os.Stderr = writeErr
 
 				// Run the main function or any specific function
 				var gotExitCode int
 				go func() {
 					gotExitCode = run(testCase.args)
-					wOut.Close()
-					wErr.Close()
+					writeOut.Close()
+					writeErr.Close()
 				}()
 
 				// Read and check outputs
-				outBytes, _ := io.ReadAll(rOut)
-				errBytes, _ := io.ReadAll(rErr)
+				outBytes, _ := io.ReadAll(readOut)
+				errBytes, _ := io.ReadAll(readErr)
 
 				// Convert expected output strings to byte slices
 				wantStdoutBytes := []byte(testCase.wantStdout)
