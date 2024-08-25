@@ -54,3 +54,6 @@ philosophy and existentialism.
 Why did I create this?  
 ANS.: I wanted a project that could propel me to learn to code and structure applications in Golang and at the same time produced something that I could use on my daily workflow.
 Being a heavy user of `Chat GPT`, it just made sense.
+
+## Next steps
+Now that fabric is written in Golang, I might as well start contributing a Perplexity function there.
