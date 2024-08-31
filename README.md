@@ -1,3 +1,6 @@
+**ARCHIVED**
+One of the reasons I started this project was to exercise on Golang. Since August 2024, [fabric](https://github.com/danielmiessler/fabric) has been transitioned into Go, hence I am retiring this repo in favor of contributing there.
+
 # ODIN CLI (work in progress...)
 Inspired by the Norse god Odin, who was always in pursuit of knowledge and wisdom, this tool aims to enhance your capabilities by providing easy access to advanced AI-driven interactions right from your terminal.
 
